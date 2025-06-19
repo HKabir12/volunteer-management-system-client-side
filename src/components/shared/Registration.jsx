@@ -44,7 +44,6 @@ const Registration = () => {
       return;
     }
 
-    
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         updateProfile(result.user, {
@@ -52,7 +51,7 @@ const Registration = () => {
           photoURL: photoURL,
         });
         console.log("User Registered:", result.user);
-        navigate("/"); 
+        navigate("/");
       })
       .catch((err) => {
         setError(err.message);
@@ -74,9 +73,11 @@ const Registration = () => {
     <>
       <Navbar></Navbar>
       <div className="max-w-md mx-auto my-12 p-6 bg-white shadow rounded border">
-        <h2 className="text-2xl font-bold mb-4 text-center">Register  your Account</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Register your Account
+        </h2>
         <form onSubmit={handleRegister} className="space-y-4">
-        <label className="label">Your Name</label>
+          <label className="label">Your Name</label>
           <input
             type="text"
             name="name"
@@ -94,7 +95,6 @@ const Registration = () => {
           />
           <label className="label">Photo URL</label>
           <input
-          
             type="text"
             name="photoURL"
             placeholder="Photo URL"
@@ -102,7 +102,7 @@ const Registration = () => {
           />
 
           <div className="relative w-full">
-          <label className="label">Password</label>
+            <label className="label">Password</label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"

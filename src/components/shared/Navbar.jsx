@@ -1,159 +1,178 @@
-import React, { use } from "react";
+import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthProvider";
+import useTheme from "../../hooks/useTheme";
+
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { user, logOut } = use(AuthContext);
-  const handleLogOut = () => {
-    console.log("user trying to LogOut");
-    logOut()
-      .then(() => {
-        console.log("You Logged Out successfully");
-        //alert("You Logged Out successfully");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const { theme, toggleTheme } = useTheme();
+
+  const handleLogout = () => {
+    logOut().then(() => {
+      console.log("Logged out");
+      navigate("/");
+    });
   };
 
-  const navLinkClass = ({ isActive }) =>
-    isActive ? "text-blue-500 font-bold" : "hover:text-blue-400";
+  const navLinks = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-semibold "
+              : "text-gray-700 font-medium"
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/all-volunteers"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-semibold "
+              : "text-gray-700 font-medium"
+          }
+        >
+          All Posts
+        </NavLink>
+      </li>
+      {user && (
+        <li tabIndex={0}>
+          <details>
+            <summary className="text-gray-700 font-medium">My Profile</summary>
+            <ul className="p-2 bg-base-100">
+              <li>
+                <NavLink
+                  to="/add-volunteer"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-semibold "
+                      : "text-gray-700 font-medium"
+                  }
+                >
+                  Add Volunteer Need Post
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/manage-posts"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-semibold "
+                      : "text-gray-700 font-medium"
+                  }
+                >
+                  Manage My Posts
+                </NavLink>
+              </li>
+            </ul>
+          </details>
+        </li>
+      )}
+    </>
+  );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4 max-w-6xl mx-auto">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-3"
-              fill="none"
-              viewBox="0 0 20 20"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-32 p-2 shadow"
-          >
-            <li>
-              <NavLink to="/" className={navLinkClass}>
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/task" className={navLinkClass}>
-                Add Task
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/browertask" className={navLinkClass}>
-                Browse Tasks
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/mypostedtasks" className={navLinkClass}>
-                My Posted Tasks
-              </NavLink>
-            </li>
+    <div className=" max-w-6xl mx-auto bg-base-100 shadow-md mb-5 sticky top-0 z-50">
+      <div className="navbar max-w-6xl mx-auto px-4">
+        {/* Left Logo */}
+        <div className="flex-1">
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src="https://i.ibb.co/cSnFd7MR/logo.jpg"
+              alt="Logo"
+              className="w-9 h-9 rounded"
+            />
+            <span className="text-xl font-bold hidden sm:inline">
+              Volunteer Hub
+            </span>
+          </Link>
+        </div>
 
-            <li>
-              <NavLink to="/profile" className={navLinkClass}>
-                My Profile
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/update-task" className={navLinkClass}>
-                Update
-              </NavLink>
-              
-            </li>
+        {/* Center Nav Items */}
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 flex justify-center items-center gap-3">
+            {navLinks}
           </ul>
         </div>
 
-        {/* Logo */}
-        <div
-          className="flex items-center space-x-2 cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          <img
-            src="https://i.ibb.co/cSnFd7MR/logo.jpg"
-            alt="Volunteer Logo"
-            className="w-8 h-8"
-          />
-          <h1 className="text-xl font-bold hidden sm:block">Volunteer</h1>
+        {/* Mobile Dropdown */}
+        <div className="lg:hidden">
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              {navLinks}
+            </ul>
+          </div>
+        </div>
+
+        {/* Right: Theme Toggle + Login/Profile */}
+<div className="flex items-center gap-4 ml-4">
+  {/* 🌙 Theme Toggle */}
+  <label className="cursor-pointer flex items-center gap-2 px-2">
+    <input
+      type="checkbox"
+      className="toggle theme-controller border border-gray-300"
+      onChange={toggleTheme}
+      checked={theme === "dark"}
+    />
+    <span className="text-sm font-medium">
+      {theme === "dark" ? "Dark" : "Light"}
+    </span>
+  </label>
+
+  {/* 👤 User Avatar or Login Button */}
+  {user ? (
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0} className="avatar cursor-pointer">
+        <div className="w-9 h-9 rounded-full border-2">
+          <img src={user.photoURL} alt="user" />
         </div>
       </div>
+      <ul className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-center">
+        <li>
+          <span className="font-medium">{user.displayName}</span>
+        </li>
+        <li>
+          <button
+            onClick={handleLogout}
+            className="btn btn-error btn-sm text-white"
+          >
+            Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  ) : (
+    <Link to="/login" className="btn btn-primary btn-sm">
+      Login
+    </Link>
+  )}
+</div>
 
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <NavLink to="/" className={navLinkClass}>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/task" className={navLinkClass}>
-              Add Task
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/browertask" className={navLinkClass}>
-              Browse Tasks
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/mypostedtasks" className={navLinkClass}>
-              My Posted Tasks
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/profile" className={navLinkClass}>
-              My Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/update-task" className={navLinkClass}>
-              Update task
-            </NavLink>
-          </li>
-        </ul>
-      </div>
-
-      <div className="navbar-end space-x-4">
-        {user ? (
-          <div className="flex items-center space-x-2">
-            <div className="relative group">
-              <img
-                src={user?.photoURL}
-                alt="Profile"
-                className="w-8 h-8 rounded-full border cursor-pointer"
-              />
-              <div className="absolute left-1/2 transform -translate-x-1/2 bg-base-200 text-xs rounded px-2 py-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity z-20 min-w-[100px] max-w-[200px] truncate text-center">
-                {user?.displayName}
-              </div>
-            </div>
-            <button
-              onClick={handleLogOut}
-              className="btn btn-sm btn-error text-white"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <Link className="btn btn-primary btn-sm" to="/login">
-            Login
-          </Link>
-        )}
       </div>
     </div>
   );
