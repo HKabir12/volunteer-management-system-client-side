@@ -3,7 +3,6 @@ import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthProvider";
 import useTheme from "../../hooks/useTheme";
 
-
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -130,49 +129,48 @@ const Navbar = () => {
         </div>
 
         {/* Right: Theme Toggle + Login/Profile */}
-<div className="flex items-center gap-4 ml-4">
-  {/* 🌙 Theme Toggle */}
-  <label className="cursor-pointer flex items-center gap-2 px-2">
-    <input
-      type="checkbox"
-      className="toggle theme-controller border border-gray-300"
-      onChange={toggleTheme}
-      checked={theme === "dark"}
-    />
-    <span className="text-sm font-medium">
-      {theme === "dark" ? "Dark" : "Light"}
-    </span>
-  </label>
+        <div className="flex items-center gap-4 ml-4">
+          {/*  Theme Toggle */}
+          <label className="cursor-pointer flex items-center gap-2 px-2">
+            <input
+              type="checkbox"
+              className="toggle theme-controller border border-gray-300"
+              onChange={toggleTheme}
+              checked={theme === "dark"}
+            />
+            <span className="text-sm font-medium">
+              {theme === "dark" ? "Dark" : "Light"}
+            </span>
+          </label>
 
-  {/* 👤 User Avatar or Login Button */}
-  {user ? (
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} className="avatar cursor-pointer">
-        <div className="w-9 h-9 rounded-full border-2">
-          <img src={user.photoURL} alt="user" />
+          {/*  User Avatar or Login Button */}
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} className="avatar cursor-pointer">
+                <div className="w-9 h-9 rounded-full border-2">
+                  <img src={user.photoURL} alt="user" />
+                </div>
+              </div>
+              <ul className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-center">
+                <li>
+                  <span className="font-medium">{user.displayName}</span>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-error btn-sm text-white"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <Link to="/login" className="btn btn-primary btn-sm">
+              Login
+            </Link>
+          )}
         </div>
-      </div>
-      <ul className="menu dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-center">
-        <li>
-          <span className="font-medium">{user.displayName}</span>
-        </li>
-        <li>
-          <button
-            onClick={handleLogout}
-            className="btn btn-error btn-sm text-white"
-          >
-            Logout
-          </button>
-        </li>
-      </ul>
-    </div>
-  ) : (
-    <Link to="/login" className="btn btn-primary btn-sm">
-      Login
-    </Link>
-  )}
-</div>
-
       </div>
     </div>
   );

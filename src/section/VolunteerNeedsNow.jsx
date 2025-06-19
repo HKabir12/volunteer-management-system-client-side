@@ -5,7 +5,6 @@ import LayoutToggle from "../hooks/LayoutToggle";
 const VolunteerNeedsNow = () => {
   const [posts, setPosts] = useState([]);
   const [isTable, setIsTable] = useState(false);
-  
 
   useEffect(() => {
     fetch("http://localhost:5000/volunteer-posts/upcoming")
@@ -23,8 +22,6 @@ const VolunteerNeedsNow = () => {
       </div>
 
       {isTable ? (
-        
-        // ✅ Table Layout
         <div className="overflow-x-auto">
           <table className="table table-zebra w-full">
             <thead>
@@ -64,7 +61,6 @@ const VolunteerNeedsNow = () => {
           </table>
         </div>
       ) : (
-        // ✅ Card Grid Layout
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
             <div key={post._id} className="card shadow-xl border">
@@ -78,7 +74,8 @@ const VolunteerNeedsNow = () => {
               <div className="card-body">
                 <h2 className="card-title text-lg">{post.title}</h2>
                 <p>
-                  <span className="font-semibold">Category:</span> {post.category}
+                  <span className="font-semibold">Category:</span>{" "}
+                  {post.category}
                 </p>
                 <p>
                   <span className="font-semibold">Deadline:</span>{" "}
