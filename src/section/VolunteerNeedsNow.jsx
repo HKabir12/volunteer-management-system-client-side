@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router"; // Use 'react-router-dom' instead of 'react-router'
+import { Link } from "react-router-dom"; // Use 'react-router-dom' instead of 'react-router'
 import LayoutToggle from "../hooks/LayoutToggle";
 
 const VolunteerNeedsNow = () => {
   const [posts, setPosts] = useState([]);
   const [isTable, setIsTable] = useState(false);
 
-  useEffect(() => {
-    fetch("https://volunteer-management-chi.vercel.app/volunteer-posts/upcoming")
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
-  }, []);
+ useEffect(() => {
+  fetch("https://volunteer-management-chi.vercel.app/volunteer-posts/upcoming")
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return res.json();
+    })
+    .then((data) => setPosts(data))
+    .catch((error) => {
+      console.error("Fetch error:", error.message);
+    });
+}, []);
 
+   console.log(posts)
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">

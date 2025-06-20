@@ -8,11 +8,11 @@ const AllVolunteerPosts = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch(`https://volunteer-management-chi.vercel.app/volunteer-posts?search=${search}`)
+    fetch(`https://volunteer-management-chi.vercel.app/volunteer-posts`)
       .then((res) => res.json())
       .then((data) => setPosts(data));
   }, [search]);
-
+   console.log(posts)
   return (
     <div>
       <Navbar></Navbar>
@@ -38,8 +38,8 @@ const AllVolunteerPosts = () => {
             <div key={post._id} className="card bg-base-100 shadow-md">
               <figure>
                 <img
-                  src={post.thumbnail}
-                  alt={post.title}
+                  src={post?.thumbnail}
+                  alt={post?.title}
                   className="h-40 w-full object-cover"
                 />
               </figure>
