@@ -6,22 +6,22 @@ import 'swiper/css/pagination';
 
 const slides = [
   {
-    image: 'https://i.ibb.co/YTYTFgBB/Volunteer1.png',
-    title: 'Make a Difference',
-    desc: 'Join our volunteer team and change lives today.',
-    btn: 'Join Now',
+    image: 'https://i.ibb.co/twrMvxqh/img1.webp',
+    title: 'Inspire Young Minds',
+    desc: 'Volunteer to teach and inspire the next generation.',
+    btn: 'Start Teaching',
   },
   {
-    image: 'https://i.ibb.co/sWdTWqB/volunteer2.jpg',
-    title: 'Be a Community Hero',
-    desc: 'Your time and skill can bring smiles to many.',
-    btn: 'Learn More',
+    image: 'https://i.ibb.co/VWSKTtCB/clean.jpg',
+    title: 'Clean Our Communities',
+    desc: 'Join local cleanup events and make your area shine.',
+    btn: 'Get Involved',
   },
   {
-    image: 'https://i.ibb.co/XW8GBrf/volunteer3.jpg',
-    title: 'Support Local Causes',
-    desc: 'Stand with us in making the world a better place.',
-    btn: 'Explore',
+    image: 'https://i.ibb.co/k21grDB7/img3.jpg',
+    title: 'Care for Animals',
+    desc: 'Help protect and care for stray and injured animals.',
+    btn: 'Volunteer Today',
   },
 ];
 
@@ -41,10 +41,10 @@ const BannerSlider = () => {
             className="max-w-6xl mx-auto h-full bg-cover bg-center flex items-center justify-center"
             style={{ backgroundImage: `url(${slide.image})` }}
           >
-            <div className="bg-black/60 w-full h-full flex items-center justify-center">
+            <div className="bg-black/60 w-full h-full flex items-center justify-center rounded-xl">
               <div className="text-white text-center space-y-4 px-4">
                 <h2 className="text-3xl md:text-5xl font-bold">{slide.title}</h2>
-                <p>{slide.desc}</p>
+                <p className="text-lg">{slide.desc}</p>
                 <button className="btn btn-primary">{slide.btn}</button>
               </div>
             </div>

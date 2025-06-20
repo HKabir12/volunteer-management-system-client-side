@@ -7,12 +7,13 @@ import Footer from "../components/shared/Footer";
 
 const ManageMyPosts = () => {
   const { user } = useContext(AuthContext);
+  //console.log(user)
   const [myPosts, setMyPosts] = useState([]);
   const [myRequests, setMyRequests] = useState([]);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/my-posts?email=${user.email}`)
+      fetch(`https://volunteer-management-chi.vercel.app/my-posts?email=${user.email}`)
         .then(res => res.json())
         .then(data => setMyPosts(data));
     }
@@ -20,7 +21,7 @@ const ManageMyPosts = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/my-requests?email=${user.email}`)
+      fetch(`https://volunteer-management-chi.vercel.app/my-requests?email=${user.email}`)
         .then(res => res.json())
         .then(data => setMyRequests(data));
     }
@@ -37,7 +38,7 @@ const ManageMyPosts = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/volunteer-posts/${id}`, {
+        fetch(`https://volunteer-management-chi.vercel.app/volunteer-posts/${id}`, {
           method: "DELETE",
           
         })
@@ -61,7 +62,7 @@ const ManageMyPosts = () => {
     confirmButtonText: 'Yes, cancel it!'
   }).then(result => {
     if (result.isConfirmed) {
-      fetch(`http://localhost:5000/volunteer-requests/${id}`, {
+      fetch(`https://volunteer-management-chi.vercel.app/volunteer-requests/${id}`, {
         method: "DELETE"
       })
         .then(res => res.json())

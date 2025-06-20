@@ -32,7 +32,7 @@ const Login = () => {
       const loggedUser = result.user;
 
       // Get JWT 
-      await fetch("http://localhost:5000/jwt", {
+      await fetch("https://volunteer-management-chi.vercel.app/jwt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -51,7 +51,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      await fetch("http://localhost:5000/jwt", {
+      await fetch("https://volunteer-management-chi.vercel.app/jwt", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

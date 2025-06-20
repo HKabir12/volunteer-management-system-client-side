@@ -32,7 +32,7 @@ const UpdatePage = () => {
       organizerEmail: user.email,
     };
 
-    const res = await fetch(`http://localhost:5000/volunteer-posts/${post._id}`, {
+    const res = await fetch(`https://volunteer-management-chi.vercel.app/volunteer-posts/${post._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedPost),
