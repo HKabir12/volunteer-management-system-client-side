@@ -7,7 +7,10 @@ const VolunteerNeedsNow = () => {
   const [isTable, setIsTable] = useState(false);
 
  useEffect(() => {
-  fetch("https://volunteer-management-chi.vercel.app/volunteer-posts/upcoming")
+  fetch("https://volunteer-management-chi.vercel.app/volunteer-posts/upcoming",{
+    method:"GET",
+    credentials:"include",
+  })
     .then((res) => {
       if (!res.ok) {
         throw new Error("Network response was not ok");

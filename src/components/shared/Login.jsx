@@ -21,8 +21,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/";
-
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -41,7 +39,7 @@ const Login = () => {
         body: JSON.stringify({ email: user.email }),
       });
 
-      navigate(from, { replace: true });
+      navigate(`${location.state ? location.state : "/"}`);
     } catch (err) {
       console.error(err.message);
       setError("Email or password incorrect");
@@ -62,7 +60,7 @@ const Login = () => {
         body: JSON.stringify({ email: user.email }),
       });
 
-      navigate(from, { replace: true });
+      navigate(`${location.state ? location.state : "/"}`);
     } catch (err) {
       console.error(err.message);
       setError("Google login failed. Check domain in Firebase.");
@@ -73,7 +71,9 @@ const Login = () => {
     <>
       <Navbar />
       <div className="max-w-md mx-auto my-12 p-6 bg-white shadow rounded border">
-        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">Login to Your Account</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
+          Login to Your Account
+        </h2>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
@@ -105,9 +105,7 @@ const Login = () => {
             </button>
           </div>
 
-          {error && (
-            <p className="text-red-500 text-sm">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button type="submit" className="btn btn-primary w-full">
             Login
@@ -117,7 +115,9 @@ const Login = () => {
         <div className="text-center mt-4">
           <p>
             Don’t have an account?{" "}
-            <Link to="/register" className="text-blue-500 hover:underline">Register</Link>
+            <Link to="/register" className="text-blue-500 hover:underline">
+              Register
+            </Link>
           </p>
 
           <div className="divider">OR</div>
