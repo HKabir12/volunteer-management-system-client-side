@@ -21,52 +21,36 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    setError(""); // Clear previous error
+    setError("");
 
-    try {
-      const result = await signInWithEmailAndPassword(auth, email, password);
-      const user = result.user;
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
-      // Get JWT
-      await fetch("https://volunteer-management-chi.vercel.app/jwt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email: user.email }),
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        console.log("Logged in:", result.user);
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((err) => {
+        const errorCode = err.code;
+        setError(errorCode);
+        //setError(err.message);
       });
-
-      navigate(`${location.state ? location.state : "/"}`);
-    } catch (err) {
-      console.error(err.message);
-      setError("Email or password incorrect");
-    }
   };
 
-  const handleGoogleLogin = async () => {
-    setError(""); // Clear previous error
-
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-
-      await fetch("https://volunteer-management-chi.vercel.app/jwt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email: user.email }),
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        console.log("Google login success:", result.user);
+        navigate(`${location.state ? location.state : "/"}`);
+      })
+      .catch((err) => {
+        setError(err.message);
       });
-
-      navigate(`${location.state ? location.state : "/"}`);
-    } catch (err) {
-      console.error(err.message);
-      setError("Google login failed. Check domain in Firebase.");
-    }
   };
-
   return (
     <>
       <Navbar />

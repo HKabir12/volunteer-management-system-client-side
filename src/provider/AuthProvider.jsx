@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import axios from "axios";
 
 const auth = getAuth(app);
 
@@ -46,6 +47,18 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      if (currentUser?.email) {
+        const userData = { email: currentUser.email };
+        axios
+          .post("https://volunteer-management-xi.vercel.app/jwt", userData, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((error) => console.log(error));
+      }
     });
     return () => unsubscribe();
   }, []);

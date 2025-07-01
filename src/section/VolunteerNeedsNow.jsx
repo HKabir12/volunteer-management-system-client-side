@@ -4,10 +4,11 @@ import LayoutToggle from "../hooks/LayoutToggle";
 
 const VolunteerNeedsNow = () => {
   const [posts, setPosts] = useState([]);
+  console.log(posts)
   const [isTable, setIsTable] = useState(false);
 
  useEffect(() => {
-  fetch("https://volunteer-management-chi.vercel.app/volunteer-posts/upcoming",{
+  fetch("https://volunteer-management-xi.vercel.app/volunteer-posts/upcoming",{
     method:"GET",
     credentials:"include",
   })
@@ -23,7 +24,7 @@ const VolunteerNeedsNow = () => {
     });
 }, []);
 
-   console.log(posts)
+   //console.log(posts)
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">

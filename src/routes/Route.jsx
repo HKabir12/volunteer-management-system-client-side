@@ -60,7 +60,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     loader: ({ params }) =>
-      fetch(`https://volunteer-management-chi.vercel.app/volunteer-posts/${params.id}`),
+      fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${params.id}`),
   },
 
   {
