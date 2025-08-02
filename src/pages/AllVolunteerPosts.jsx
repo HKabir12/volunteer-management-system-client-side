@@ -10,7 +10,7 @@ const AllVolunteerPosts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/volunteer-posts?search=${search}`, {
+    fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts?search=${search}`, {
       
     })
       .then((res) => res.json())

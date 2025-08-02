@@ -13,7 +13,7 @@ const ManageMyPosts = () => {
   // Fetch My Posts
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-posts?email=${user.email}`, {})
+      fetch(`https://volunteer-management-xi.vercel.app/my-posts?email=${user.email}`, {})
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) {
@@ -32,7 +32,7 @@ const ManageMyPosts = () => {
   // Fetch My Volunteer Requests
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-requests?email=${user.email}`, {})
+      fetch(`https://volunteer-management-xi.vercel.app/my-requests?email=${user.email}`, {})
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) {
@@ -58,7 +58,7 @@ const ManageMyPosts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/volunteer-posts/${id}`, {
+        fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -82,7 +82,7 @@ const ManageMyPosts = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/volunteer-requests/${id}`, {
+        fetch(`https://volunteer-management-xi.vercel.app/volunteer-requests/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

@@ -8,9 +8,12 @@ const VolunteerNeedsNow = () => {
   const [isTable, setIsTable] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/volunteer-posts/upcoming", {
-      method: "GET",
-    })
+    fetch(
+      "https://volunteer-management-xi.vercel.app/volunteer-posts/upcoming",
+      {
+        method: "GET",
+      }
+    )
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");
