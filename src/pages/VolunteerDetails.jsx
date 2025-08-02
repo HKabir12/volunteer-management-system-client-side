@@ -13,7 +13,7 @@ const VolunteerDetails = () => {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${id}`)
+    fetch(`http://localhost:3000/volunteer-posts/${id}`)
       .then((res) => res.json())
       .then((data) => setPost(data));
   }, [id]);

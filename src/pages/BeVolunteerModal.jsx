@@ -17,10 +17,10 @@ const BeVolunteerModal = ({ post, user, closeModal }) => {
     };
 
     try {
-      const res = await fetch("https://volunteer-management-xi.vercel.app/volunteer-requests", {
+      const res = await fetch("http://localhost:3000/volunteer-requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        
         body: JSON.stringify(volunteerRequest),
       });
 

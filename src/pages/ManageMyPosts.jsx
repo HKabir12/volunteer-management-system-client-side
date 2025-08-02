@@ -13,9 +13,7 @@ const ManageMyPosts = () => {
   // Fetch My Posts
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://volunteer-management-xi.vercel.app/my-posts?email=${user.email}`, {
-        credentials: "include",
-      })
+      fetch(`http://localhost:3000/my-posts?email=${user.email}`, {})
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) {
@@ -34,9 +32,7 @@ const ManageMyPosts = () => {
   // Fetch My Volunteer Requests
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://volunteer-management-xi.vercel.app/my-requests?email=${user.email}`, {
-        credentials: "include",
-      })
+      fetch(`http://localhost:3000/my-requests?email=${user.email}`, {})
         .then((res) => res.json())
         .then((data) => {
           if (Array.isArray(data)) {
@@ -62,9 +58,8 @@ const ManageMyPosts = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${id}`, {
+        fetch(`http://localhost:3000/volunteer-posts/${id}`, {
           method: "DELETE",
-          credentials: "include",
         })
           .then((res) => res.json())
           .then((data) => {
@@ -87,17 +82,24 @@ const ManageMyPosts = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://volunteer-management-xi.vercel.app/volunteer-requests/${id}`, {
+        fetch(`http://localhost:3000/volunteer-requests/${id}`, {
           method: "DELETE",
-          credentials: "include",
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
-              Swal.fire("Cancelled!", "Your request has been cancelled.", "success");
+              Swal.fire(
+                "Cancelled!",
+                "Your request has been cancelled.",
+                "success"
+              );
               setMyRequests((prev) => prev.filter((r) => r._id !== id));
             } else {
-              Swal.fire("Failed", "Request not found or already deleted.", "error");
+              Swal.fire(
+                "Failed",
+                "Request not found or already deleted.",
+                "error"
+              );
             }
           });
       }
@@ -108,7 +110,6 @@ const ManageMyPosts = () => {
     <div>
       <Navbar />
       <div className="max-w-6xl mx-auto p-6 space-y-10">
-
         {/* My Posts */}
         <section>
           <h2 className="text-2xl font-bold mb-4">My Volunteer Need Posts</h2>
@@ -132,7 +133,10 @@ const ManageMyPosts = () => {
                       <td>{post.category}</td>
                       <td>{new Date(post.deadline).toLocaleDateString()}</td>
                       <td className="space-x-2">
-                        <Link to={`/update-post/${post._id}`} className="btn btn-sm btn-info">
+                        <Link
+                          to={`/update-post/${post._id}`}
+                          className="btn btn-sm btn-info"
+                        >
                           Update
                         </Link>
                         <button
@@ -152,7 +156,9 @@ const ManageMyPosts = () => {
 
         {/* My Volunteer Requests */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">My Volunteer Request Posts</h2>
+          <h2 className="text-2xl font-bold mb-4">
+            My Volunteer Request Posts
+          </h2>
           {myRequests.length === 0 ? (
             <p>You have not requested to be a volunteer in any post yet.</p>
           ) : (

@@ -10,8 +10,8 @@ const AllVolunteerPosts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts?search=${search}`, {
-      credentials: "include",
+    fetch(`http://localhost:3000/volunteer-posts?search=${search}`, {
+      
     })
       .then((res) => res.json())
       .then((data) => {

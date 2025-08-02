@@ -1,4 +1,4 @@
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 const Volunteer = () => {
