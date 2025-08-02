@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // ✅ 'react-router-dom' use korte hobe
+import { Link } from "react-router-dom";
 import Footer from "../components/shared/Footer";
 import Navbar from "../components/shared/Navbar";
 
@@ -10,9 +10,12 @@ const AllVolunteerPosts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts?search=${search}`, {
-      
-    })
+    fetch(
+      `http://localhost:3000/volunteer-posts?search=${search}`,
+      {
+        credentials: "include",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log("API Response:", data);
@@ -77,7 +80,9 @@ const AllVolunteerPosts = () => {
                   </p>
                   <div className="card-actions justify-end">
                     <Link to={`/volunteer-post/${post._id}`}>
-                      <button className="btn btn-sm btn-primary">View Details</button>
+                      <button className="btn btn-sm btn-primary">
+                        View Details
+                      </button>
                     </Link>
                   </div>
                 </div>
