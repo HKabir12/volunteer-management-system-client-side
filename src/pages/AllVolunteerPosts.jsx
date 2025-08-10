@@ -28,7 +28,7 @@ const AllVolunteerPosts = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/volunteer-posts?search=${encodeURIComponent(
+          `https://volunteer-management-xi.vercel.app/volunteer-posts?search=${encodeURIComponent(
             searchQuery
           )}`,
           { credentials: "include" }
