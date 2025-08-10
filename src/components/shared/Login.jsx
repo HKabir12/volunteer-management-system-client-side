@@ -10,7 +10,6 @@ import {
 import { FaGoogle } from "react-icons/fa";
 import app from "../../firebase/firebase.config";
 
-
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
@@ -52,50 +51,61 @@ const Login = () => {
   };
   return (
     <>
-      
-      <div className="max-w-md w-6xl mx-auto my-12 p-6 bg-white shadow rounded border">
-        <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
+      <div className="w-full max-w-md mx-auto my-12 p-6 sm:p-8 bg-white shadow rounded border">
+        <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
           Login to Your Account
         </h2>
 
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Email */}
           <div>
-            <label className="label">Email</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">
+              Email
+            </label>
             <input
               type="email"
               name="email"
               placeholder="you@example.com"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full text-sm sm:text-base"
               required
             />
           </div>
 
+          {/* Password */}
           <div className="relative">
-            <label className="label">Password</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">
+              Password
+            </label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
-              className="input input-bordered w-full pr-10"
+              className="input input-bordered w-full pr-10 text-sm sm:text-base"
               required
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-9 text-gray-500"
+              className="absolute right-3 top-[38px] text-gray-500"
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
 
+          {/* Error */}
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          <button type="submit" className="btn btn-primary w-full">
+          {/* Login Button */}
+          <button
+            type="submit"
+            className="btn btn-primary w-full text-sm sm:text-base"
+          >
             Login
           </button>
         </form>
 
-        <div className="text-center mt-4">
+        {/* Register Link */}
+        <div className="text-center mt-4 text-sm sm:text-base">
           <p>
             Don’t have an account?{" "}
             <Link to="/register" className="text-blue-500 hover:underline">
@@ -103,17 +113,17 @@ const Login = () => {
             </Link>
           </p>
 
-          <div className="divider">OR</div>
+          <div className="divider text-gray-400">OR</div>
 
+          {/* Google Button */}
           <button
             onClick={handleGoogleLogin}
-            className="btn btn-outline w-full flex items-center justify-center gap-2"
+            className="btn btn-outline w-full flex items-center justify-center gap-2 text-sm sm:text-base"
           >
-            <FaGoogle /> Continue with Google
+            <FaGoogle size={16} /> Continue with Google
           </button>
         </div>
       </div>
-      
     </>
   );
 };
