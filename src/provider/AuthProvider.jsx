@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         const userData = { email: currentUser.email };
         axios
-          .post("https://volunteer-management-xi.vercel.app/jwt", userData, {
+          .post("http://localhost:3000/jwt", userData, {
             withCredentials: true,
           })
           .then((res) => {

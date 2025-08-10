@@ -10,25 +10,38 @@ import AllVolunteerPosts from "../pages/AllVolunteerPosts";
 import ManageMyPosts from "../pages/ManageMyPosts";
 import UpdatePage from "../pages/UpdatePage";
 import NotFound from "../components/shared/NotFound";
+import AuthLayout from "../layouts/AuthLayout";
+import RootLayout from "../layouts/RootLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: Home,
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/login",
+        Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Registration,
+      },
+    ],
   },
+
   {
-    path: "/login",
-    Component: Login,
-  },
-  {
-    path: "/register",
-    Component: Registration,
-  },
-  {
-    path: "/add-volunteer",
-    Component: AddVolunteer,
-  },
-  {
+    path: "/",
+    Component: RootLayout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/add-volunteer",
+        Component: AddVolunteer,
+      },
+       {
     path: "/volunteer-post/:id",
     element: (
       <PrivateRoute>
@@ -60,8 +73,45 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     loader: ({ params }) =>
-      fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${params.id}`),
+      fetch(`http://localhost:3000/volunteer-posts/${params.id}`),
   },
+    ],
+  },
+  
+  // {
+  //   path: "/volunteer-post/:id",
+  //   element: (
+  //     <PrivateRoute>
+  //       <VolunteerDetails></VolunteerDetails>
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/all-volunteers",
+  //   element: (
+  //     <PrivateRoute>
+  //       <AllVolunteerPosts />
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/manage-posts",
+  //   element: (
+  //     <PrivateRoute>
+  //       <ManageMyPosts />
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/update-post/:id",
+  //   element: (
+  //     <PrivateRoute>
+  //       <UpdatePage />
+  //     </PrivateRoute>
+  //   ),
+  //   loader: ({ params }) =>
+  //     fetch(`http://localhost:3000/volunteer-posts/${params.id}`),
+  // },
 
   {
     path: "*",

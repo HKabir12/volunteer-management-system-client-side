@@ -1,5 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Search,
+  Loader2,
+  ChevronLeft,
+  ChevronRight,
+  CalendarDays,
+  Tag,
+  SortAsc,
+  SortDesc,
+} from "lucide-react";
 import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 
@@ -10,175 +20,199 @@ const AllVolunteerPosts = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [sortOrder, setSortOrder] = useState("default");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Debounce search input update
+  // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchQuery(searchInput.trim());
-      setCurrentPage(1); // reset page on new search
-    }, 500);
+      setCurrentPage(1);
+    }, 400);
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  // Fetch posts from backend API with search query
+  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `https://volunteer-management-xi.vercel.app/volunteer-posts?search=${encodeURIComponent(
+          `http://localhost:3000/volunteer-posts?search=${encodeURIComponent(
             searchQuery
           )}`,
           { credentials: "include" }
         );
         const data = await res.json();
         setPosts(Array.isArray(data) ? data : []);
-      } catch {
+      } catch (err) {
+        console.error("Failed to fetch volunteer posts:", err);
         setPosts([]);
       } finally {
         setLoading(false);
       }
     };
-
     fetchPosts();
   }, [searchQuery]);
 
-  // Pagination logic
-  const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
-  const paginatedPosts = posts.slice(
+  // Sort
+  const sortedPosts = [...posts].sort((a, b) => {
+    if (sortOrder === "asc") return new Date(a.deadline) - new Date(b.deadline);
+    if (sortOrder === "desc")
+      return new Date(b.deadline) - new Date(a.deadline);
+    return 0;
+  });
+
+  // Pagination
+  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
+  const paginatedPosts = sortedPosts.slice(
     (currentPage - 1) * POSTS_PER_PAGE,
     currentPage * POSTS_PER_PAGE
   );
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPages) setCurrentPage(page);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
   };
 
   return (
-    <div className="min-h-screen flex flex-col ">
-      <Navbar />
+    <div>
+      
 
-      <main className="flex-grow max-w-6xl mx-auto px-4 py-10">
-        <h2 className="text-4xl font-bold text-center mb-10">
-          Volunteer Needs
-        </h2>
+      <div className="min-h-screen  dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 w-6xl mx-auto bg-primary ">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-8 text-blue-600 dark:text-blue-400">
+            Volunteer Needs
+          </h2>
 
-        {/* Search Bar */}
-        <div className="mb-10 flex justify-center">
-          <input
-            type="text"
-            placeholder="Search volunteer posts by title..."
-            className="input input-bordered w-full max-w-lg"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            aria-label="Search volunteer posts"
-          />
-        </div>
+          {/* Search + Sort */}
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            <div className="relative w-full sm:w-1/2">
+              <Search
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
+                size={18}
+              />
+              <input
+                type="text"
+                placeholder="Search by title..."
+                className="pl-10 pr-4 py-2 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 placeholder-gray-400 text-sm focus:ring-blue-500 focus:border-blue-500 outline-none"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+            </div>
 
-        {/* Loading */}
-        {loading && (
-          <div className="flex justify-center mb-8">
-            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-300 h-16 w-16"></div>
+            <div className="relative">
+              <select
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+                className="appearance-none pr-8 pl-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="default">Default</option>
+                <option value="asc">Earliest Deadline</option>
+                <option value="desc">Latest Deadline</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-gray-500">
+                {sortOrder === "asc" ? (
+                  <SortAsc size={18} />
+                ) : (
+                  <SortDesc size={18} />
+                )}
+              </div>
+            </div>
           </div>
-        )}
 
-        {/* No posts found */}
-        {!loading && posts.length === 0 && (
-          <p className="text-center text-red-600 text-lg font-medium">
-            No volunteer posts found.
-          </p>
-        )}
+          {/* Loader */}
+          {loading && (
+            <div className="flex justify-center items-center py-16">
+              <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
+            </div>
+          )}
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-6xl mx-auto">
-          {paginatedPosts.map((post) => (
-            <div
-              key={post._id}
-              className="card bg-white shadow-lg rounded-lg flex flex-col hover:shadow-xl transition-shadow duration-300"
-              style={{ minHeight: "430px" }}
-            >
-              <figure className="h-48 overflow-hidden rounded-t-lg">
+          {/* Empty */}
+          {!loading && posts.length === 0 && (
+            <p className="text-center text-lg font-medium text-red-500 py-16">
+              No volunteer posts found.
+            </p>
+          )}
+
+          {/* Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedPosts.map((post) => (
+              <div
+                key={post._id}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col"
+              >
                 <img
                   src={post.thumbnail}
                   alt={post.title}
-                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
+                  className="h-40 w-full object-cover"
                 />
-              </figure>
-              <div className="card-body flex flex-col flex-grow p-6">
-                <h3 className="text-xl font-semibold mb-2 line-clamp-2">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-1">
-                  <span className="font-medium">Category:</span> {post.category}
-                </p>
-                <p className="text-sm text-gray-600 mb-4">
-                  <span className="font-medium">Deadline:</span>{" "}
-                  {new Date(post.deadline).toLocaleDateString()}
-                </p>
-                <div className="mt-auto text-right">
-                  <Link to={`/volunteer-post/${post._id}`}>
-                    <button className="btn btn-primary btn-sm">
+                <div className="p-4 flex flex-col flex-grow">
+                  <h3 className="text-lg font-bold mb-1 line-clamp-1 text-blue-600 dark:text-blue-400">
+                    {post.title}
+                  </h3>
+                  <p className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <Tag className="w-4 h-4 mr-1 text-pink-500" />
+                    {post.category}
+                  </p>
+                  <p className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    <CalendarDays className="w-4 h-4 mr-1 text-emerald-500" />
+                    Deadline: {new Date(post.deadline).toLocaleDateString()}
+                  </p>
+                  <div className="mt-auto">
+                    <Link
+                      to={`/volunteer-post/${post._id}`}
+                      className="inline-block w-full text-center bg-blue-600 text-white text-sm font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
+                    >
                       View Details
-                    </button>
-                  </Link>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination Controls */}
-        {totalPages > 1 && (
-          <div className="flex justify-center space-x-3 mt-12">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="btn btn-outline btn-sm"
-            >
-              Prev
-            </button>
-
-            {[...Array(totalPages)].map((_, i) => {
-              const pageNum = i + 1;
-              return (
-                <button
-                  key={pageNum}
-                  onClick={() => handlePageChange(pageNum)}
-                  className={`btn btn-sm ${
-                    pageNum === currentPage ? "btn-primary" : "btn-outline"
-                  }`}
-                >
-                  {pageNum}
-                </button>
-              );
-            })}
-
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="btn btn-outline btn-sm"
-            >
-              Next
-            </button>
+            ))}
           </div>
-        )}
-      </main>
 
-      <Footer />
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-10">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="p-2 rounded-full border border-blue-500 text-blue-500 disabled:opacity-50 hover:bg-blue-500 hover:text-white transition"
+              >
+                <ChevronLeft size={18} />
+              </button>
 
-      {/* Loader CSS */}
-      <style>{`
-        .loader {
-          border-top-color: #3b82f6; /* Tailwind blue-500 */
-          animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
+              {[...Array(totalPages)].map((_, i) => {
+                const pageNum = i + 1;
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => handlePageChange(pageNum)}
+                    className={`px-3 py-1 rounded-lg text-sm font-medium transition ${
+                      pageNum === currentPage
+                        ? "bg-blue-600 text-white"
+                        : "border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded-full border border-blue-500 text-blue-500 disabled:opacity-50 hover:bg-blue-500 hover:text-white transition"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          )}
+        </main>
+      </div>
+      
     </div>
   );
 };

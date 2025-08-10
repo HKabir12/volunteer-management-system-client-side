@@ -101,82 +101,83 @@ const Navbar = () => {
   );
 
   return (
-    <div className="w-6xl mx-auto bg-primary shadow-md sticky top-0 z-50">
-      <div className="navbar max-w-6xl mx-auto px-4">
-        {/* Left Logo */}
-        <div className="flex-1">
+    <div className="bg-primary shadow-md sticky top-0 z-50 w-full">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Left Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img
               src="https://i.ibb.co/cSnFd7MR/logo.jpg"
               alt="Logo"
-              className="w-10 h-10 rounded-full border-2 border-white shadow"
+              className="w-9 h-9 rounded-full border-2 border-white shadow"
             />
-            <span className="text-xl font-bold text-white hidden sm:inline">
+            <span className="text-lg font-bold text-white hidden sm:inline">
               Volunteer Hub
             </span>
           </Link>
-        </div>
 
-        {/* Desktop Nav */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 flex items-center gap-3">
-            {navLinks}
-          </ul>
-        </div>
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex">
+            <ul className="flex items-center gap-5">{navLinks}</ul>
+          </div>
 
-        {/* Right Side: Theme + User */}
-        <div className="flex items-center gap-4">
-          {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-white shadow hover:scale-105 transition-transform"
-          >
-            {theme === "dark" ? (
-              <Moon size={18} className="text-gray-800" />
-            ) : (
-              <Sun size={18} className="text-yellow-500" />
-            )}
-          </button>
+          {/* Right Section */}
+          <div className="flex items-center gap-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-full bg-white shadow hover:scale-105 transition-transform"
+            >
+              {theme === "dark" ? (
+                <Moon size={16} className="text-gray-800" />
+              ) : (
+                <Sun size={16} className="text-yellow-500" />
+              )}
+            </button>
 
-          {/* User Menu */}
-          {user ? (
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} className="avatar cursor-pointer">
-                <div className="w-10 h-10 rounded-full border-2 border-white">
-                  <img src={user.photoURL} alt="user" />
+            {/* User */}
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div tabIndex={0} className="avatar cursor-pointer">
+                  <div className="w-9 h-9 rounded-full border-2 border-white">
+                    <img src={user.photoURL} alt="user" />
+                  </div>
                 </div>
+                <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-lg shadow-lg border border-gray-200 w-44">
+                  <li>
+                    <span className="font-medium">{user.displayName}</span>
+                  </li>
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className="btn btn-error btn-sm text-white"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </div>
-              <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-lg shadow-lg border border-gray-200 w-52">
-                <li>
-                  <span className="font-medium">{user.displayName}</span>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="btn btn-error btn-sm text-white"
-                  >
-                    Logout
-                  </button>
-                </li>
+            ) : (
+              <Link
+                to="/login"
+                className="btn btn-accent btn-sm px-3 py-1 text-sm"
+              >
+                Login
+              </Link>
+            )}
+
+            {/* Mobile Menu */}
+            <div className="lg:hidden dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
+                <Menu className="h-5 w-5 text-white" />
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-lg shadow-lg border border-gray-200 w-48"
+              >
+                {navLinks}
               </ul>
             </div>
-          ) : (
-            <Link to="/login" className="btn btn-accent btn-sm">
-              Login
-            </Link>
-          )}
-
-          {/* Mobile Menu */}
-          <div className="lg:hidden dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle">
-              <Menu className="h-6 w-6 text-white" />
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 bg-base-100 rounded-lg shadow-lg border border-gray-200 w-52"
-            >
-              {navLinks}
-            </ul>
           </div>
         </div>
       </div>

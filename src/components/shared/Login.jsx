@@ -54,7 +54,7 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-md mx-auto my-12 p-6 bg-white shadow rounded border">
+      <div className="max-w-md w-6xl mx-auto my-12 p-6 bg-white shadow rounded border">
         <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
           Login to Your Account
         </h2>
