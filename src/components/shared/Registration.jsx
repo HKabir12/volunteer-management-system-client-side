@@ -11,8 +11,7 @@ import {
 
 import { Eye, EyeOff } from "lucide-react";
 import app from "../../firebase/firebase.config";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
@@ -71,7 +70,6 @@ const Registration = () => {
 
   return (
     <>
-      <Navbar></Navbar>
       <div className="max-w-md mx-auto my-12 p-6 bg-white shadow rounded border">
         <h2 className="text-2xl font-bold mb-4 text-center">
           Register your Account
@@ -145,7 +143,6 @@ const Registration = () => {
           </button>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 };

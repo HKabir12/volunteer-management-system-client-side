@@ -68,7 +68,7 @@ const VolunteerDetails = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-      <Navbar />
+      
       <main className="flex-grow max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 py-16">
         <div className="bg-white dark:bg-gray-800 shadow-xl rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700">
           {/* Post Thumbnail */}
@@ -159,7 +159,7 @@ const VolunteerDetails = () => {
           />
         )}
       </main>
-      <Footer />
+      
     </div>
   );
 };

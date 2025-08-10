@@ -12,6 +12,7 @@ import UpdatePage from "../pages/UpdatePage";
 import NotFound from "../components/shared/NotFound";
 import AuthLayout from "../layouts/AuthLayout";
 import RootLayout from "../layouts/RootLayout";
+import About from "../components/shared/About";
 
 const router = createBrowserRouter([
   {
@@ -41,77 +42,42 @@ const router = createBrowserRouter([
         path: "/add-volunteer",
         Component: AddVolunteer,
       },
-       {
-    path: "/volunteer-post/:id",
-    element: (
-      <PrivateRoute>
-        <VolunteerDetails></VolunteerDetails>
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/all-volunteers",
-    element: (
-      <PrivateRoute>
-        <AllVolunteerPosts />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/manage-posts",
-    element: (
-      <PrivateRoute>
-        <ManageMyPosts />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/update-post/:id",
-    element: (
-      <PrivateRoute>
-        <UpdatePage />
-      </PrivateRoute>
-    ),
-    loader: ({ params }) =>
-      fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${params.id}`),
-  },
+      {
+        path: "/volunteer-post/:id",
+        element: (
+          <PrivateRoute>
+            <VolunteerDetails></VolunteerDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/all-volunteers",
+        element: <AllVolunteerPosts />,
+      },
+      {
+        path: "/manage-posts",
+        element: (
+          <PrivateRoute>
+            <ManageMyPosts />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-post/:id",
+        element: (
+          <PrivateRoute>
+            <UpdatePage />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${params.id}`),
+      },
+      {
+        path: "/about-us",
+        Component: About,
+      },
     ],
   },
-  
-  // {
-  //   path: "/volunteer-post/:id",
-  //   element: (
-  //     <PrivateRoute>
-  //       <VolunteerDetails></VolunteerDetails>
-  //     </PrivateRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/all-volunteers",
-  //   element: (
-  //     <PrivateRoute>
-  //       <AllVolunteerPosts />
-  //     </PrivateRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/manage-posts",
-  //   element: (
-  //     <PrivateRoute>
-  //       <ManageMyPosts />
-  //     </PrivateRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/update-post/:id",
-  //   element: (
-  //     <PrivateRoute>
-  //       <UpdatePage />
-  //     </PrivateRoute>
-  //   ),
-  //   loader: ({ params }) =>
-  //     fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${params.id}`),
-  // },
 
   {
     path: "*",

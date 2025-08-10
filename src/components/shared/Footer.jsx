@@ -1,10 +1,11 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; // corrected from "react-router"
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10  w-full">
+    <footer className="bg-gray-950 text-white py-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center sm:text-left">
+        
         {/* Quick Links */}
         <div>
           <h3 className="text-lg font-semibold mb-4 text-primary">
@@ -13,26 +14,34 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li>
               <Link
-                to="/terms"
+                to="/"
                 className="hover:underline text-gray-300 transition-colors"
               >
-                Terms of Service
+                Home
               </Link>
             </li>
             <li>
               <Link
-                to="/privacy"
+                to="/all-posts"
                 className="hover:underline text-gray-300 transition-colors"
               >
-                Privacy Policy
+                All Volunteer Posts
               </Link>
             </li>
             <li>
               <Link
-                to="/developer"
+                to="/manage-posts"
                 className="hover:underline text-gray-300 transition-colors"
               >
-                Developer Resources
+                Manage My Posts
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/add-post"
+                className="hover:underline text-gray-300 transition-colors"
+              >
+                Add New Post
               </Link>
             </li>
           </ul>
@@ -86,9 +95,10 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-4 text-primary">About</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
             &copy; {new Date().getFullYear()}{" "}
-            <span className="text-white font-bold">Volunteer Market</span>.{" "}
+            <span className="text-white font-bold">Volunteer Management System</span>.
             <br />
-            Empowering communities through volunteering. <br />
+            Connecting volunteers with opportunities to make a difference.
+            <br />
             Built with ❤️ using React & Tailwind CSS.
           </p>
         </div>
