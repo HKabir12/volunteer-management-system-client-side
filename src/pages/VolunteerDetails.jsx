@@ -16,7 +16,7 @@ const VolunteerDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/volunteer-posts/${id}`)
+    fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setPost(data);
