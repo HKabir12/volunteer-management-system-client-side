@@ -27,37 +27,42 @@ const slides = [
 
 const BannerSlider = () => {
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      navigation
-      pagination={{ clickable: true }}
-      autoplay={{ delay: 4000, disableOnInteraction: false }}
-      loop={true}
-      className="max-w-6xl mx-auto rounded-xl overflow-hidden h-[400px] md:h-[500px] mt-4"
-      aria-label="Homepage promotional banner slider"
-    >
-      {slides.map(({ image, title, desc, btn }, index) => (
-        <SwiperSlide key={index}>
-          <div
-            className="w-full h-full bg-center bg-cover flex items-center justify-center"
-            style={{ backgroundImage: `url(${image})` }}
-          >
-            {/* Overlay */}
-            <div className="bg-black/60 w-full h-full flex items-center justify-center px-6 rounded-xl ">
-              <div className="text-white max-w-xl text-center space-y-5">
-                <h2 className="text-3xl md:text-5xl font-extrabold drop-shadow-lg">
+    <section className="relative w-full pt-4">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        loop
+        className="max-w-6xl mx-auto rounded-xl overflow-hidden h-[400px] md:h-[500px]"
+        aria-label="Homepage promotional banner slider"
+      >
+        {slides.map(({ image, title, desc, btn }, index) => (
+          <SwiperSlide key={index}>
+            <div
+              className="w-full h-full bg-center bg-cover flex items-center justify-center relative"
+              style={{ backgroundImage: `url(${image})` }}
+            >
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50"></div>
+
+              {/* Content */}
+              <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center space-y-5 max-w-2xl">
+                <h2 className="text-3xl md:text-5xl font-extrabold text-white drop-shadow-xl animate-fadeIn">
                   {title}
                 </h2>
-                <p className="text-lg md:text-xl drop-shadow-md">{desc}</p>
-                <button className="btn btn-primary btn-md shadow-lg hover:scale-105 transition-transform">
+                <p className="text-lg md:text-xl text-white drop-shadow-lg animate-fadeIn delay-100">
+                  {desc}
+                </p>
+                <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transform transition-all hover:scale-105 animate-fadeIn delay-200">
                   {btn}
                 </button>
               </div>
             </div>
-          </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </section>
   );
 };
 

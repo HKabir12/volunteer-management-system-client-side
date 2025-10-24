@@ -45,7 +45,7 @@ const UpdatePage = () => {
       };
   
       const res = await fetch(
-        `https://volunteer-management-xi.vercel.app/volunteer-posts/${post._id}`,
+        `http://localhost:3000/volunteer-posts/${post._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

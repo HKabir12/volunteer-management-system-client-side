@@ -7,7 +7,7 @@ const AuthLayout = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-6xl mx-auto  ">
+      <div className="max-w-7xl mx-auto  ">
         <Outlet />
       </div>
       <Footer />

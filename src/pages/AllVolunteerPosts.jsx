@@ -38,7 +38,7 @@ const AllVolunteerPosts = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `https://volunteer-management-xi.vercel.app/volunteer-posts?search=${encodeURIComponent(
+          `http://localhost:3000/volunteer-posts?search=${encodeURIComponent(
             searchQuery
           )}`,
           { credentials: "include" }
@@ -77,9 +77,9 @@ const AllVolunteerPosts = () => {
   };
 
   return (
-    <div className="min-h-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 bg-primary">
+    <div className="min-h-screen   transition-colors duration-300">
       <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-6 sm:py-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-6 sm:mb-8 text-blue-600 dark:text-blue-400">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-6 sm:mb-8 dark:text-white">
           Volunteer Needs
         </h2>
 
@@ -88,13 +88,13 @@ const AllVolunteerPosts = () => {
           {/* Search Bar */}
           <div className="relative w-full sm:w-1/2">
             <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
+              className="absolute left-3 top-1/2 -translate-y-1/2 "
               size={18}
             />
             <input
               type="text"
               placeholder="Search by title..."
-              className="pl-9 pr-3 py-2 w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 placeholder-gray-400 text-sm focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="pl-9 pr-3 py-2 w-full rounded-lg border   outline-none"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
@@ -105,13 +105,13 @@ const AllVolunteerPosts = () => {
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
-              className="appearance-none pr-8 pl-3 py-2 w-full sm:w-auto rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-sm cursor-pointer focus:ring-blue-500 focus:border-blue-500"
+              className="appearance-none pr-8 pl-3 py-2 w-full sm:w-auto rounded-lg border "
             >
               <option value="default">Default</option>
               <option value="asc">Earliest Deadline</option>
               <option value="desc">Latest Deadline</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-gray-500">
+            <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center ">
               {sortOrder === "asc" ? (
                 <SortAsc size={18} />
               ) : (

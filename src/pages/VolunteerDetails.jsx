@@ -16,7 +16,7 @@ const VolunteerDetails = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://volunteer-management-xi.vercel.app/volunteer-posts/${id}`)
+    fetch(`http://localhost:3000/volunteer-posts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setPost(data);
@@ -58,7 +58,7 @@ const VolunteerDetails = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <div className="min-h-screen flex justify-center items-center  dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
         <p className="text-xl font-semibold text-red-600 dark:text-red-400">
           Post not found.
         </p>
@@ -67,7 +67,7 @@ const VolunteerDetails = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col  dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       
       <main className="flex-grow max-w-7xl mx-auto px-6 sm:px-12 lg:px-20 py-16">
         <div className="bg-white dark:bg-gray-800 shadow-xl rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700">
