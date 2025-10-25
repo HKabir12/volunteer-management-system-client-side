@@ -13,6 +13,7 @@ import NotFound from "../components/shared/NotFound";
 import AuthLayout from "../layouts/AuthLayout";
 import RootLayout from "../layouts/RootLayout";
 import About from "../components/shared/About";
+import Contact from "../components/shared/ContactInfo";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
         path: "/about-us",
         Component: About,
       },
+       {
+        path: "/contact-us",
+        Component: Contact,
+      },
+
     ],
   },
 

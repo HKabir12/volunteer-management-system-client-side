@@ -6,6 +6,7 @@ import VolunteerNeedsNow from "../../section/VolunteerNeedsNow";
 import Section2 from "../../section/Section2";
 import HowItWorks from "../utilities/HowItWorks";
 import Statistics from "../utilities/Statistics";
+import WhyDifferent from "../utilities/WhyDifferent";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <Section2></Section2>
       <HowItWorks></HowItWorks>
       <Statistics></Statistics>
+      <WhyDifferent></WhyDifferent> 
       <Volunteer></Volunteer>
     </div>
   );

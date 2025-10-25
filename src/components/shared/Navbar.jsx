@@ -19,13 +19,18 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "All Posts", path: "/all-volunteers" },
+    
     ...(user
       ? [
           { name: "Add Post", path: "/add-volunteer" },
           { name: "Manage My Posts", path: "/manage-posts" },
           { name: "About", path: "/about-us" },
         ]
-      : [{ name: "About", path: "/about-us" }]),
+      : [
+          { name: "About", path: "/about-us" },
+         
+        ]),
+         { name: "Contact", path: "/contact-us" },
   ];
 
   return (
