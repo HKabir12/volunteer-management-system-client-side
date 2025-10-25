@@ -32,7 +32,7 @@ const AddVolunteer = () => {
     const newPost = { ...form, organizerName: user?.displayName, organizerEmail: user?.email };
 
     try {
-      const res = await fetch("http://localhost:3000/volunteer-posts", {
+      const res = await fetch("https://volunteer-management-xi.vercel.app/volunteer-posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newPost),

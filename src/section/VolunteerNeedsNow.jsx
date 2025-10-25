@@ -7,7 +7,7 @@ const VolunteerNeedsNow = () => {
   const [isTable, setIsTable] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/volunteer-posts/upcoming", {
+    fetch("https://volunteer-management-xi.vercel.app/volunteer-posts/upcoming", {
       method: "GET",
       credentials: "include",
     })
